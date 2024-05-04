@@ -1,30 +1,41 @@
-# React + TypeScript + Vite
+**Title:** TanStack React Table with Cell Editing and Pagination
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Description:**
 
-Currently, two official plugins are available:
+This project demonstrates a highly customizable and interactive data table built using TanStack React Table. It offers features like:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Cell Editing:** Users can directly modify data within table cells, providing a seamless editing experience.
+- **Pagination:** Large datasets can be efficiently managed by navigating through pages, improving performance and visual clarity.
+- **Tailwind CSS Styling:** The table adopts a clean and professional look using Tailwind CSS classes.
+- **Responsiveness:** The table adapts to different screen sizes, ensuring user-friendliness across devices.
 
-## Expanding the ESLint configuration
+**Installation:**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **Prerequisites:**
+   - Node.js and npm (or yarn) installed on your system. You can download them from [https://nodejs.org/en](https://nodejs.org/en)
+2. **Clone the repository:**
+   ```bash
+   git clone https://github.com/RF-Rifat/TanStack-Table.git
+   ```
+3. **Install dependencies:**
+   ```bash
+   cd TanStack-Table
+   npm install
+**Usage:**
 
-- Configure the top-level `parserOptions` property like this:
+1. **Start the development server:**
+   ```bash
+   npm run dev
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+   This will launch a local development server, typically accessible at `http://localhost:5173` in your web browser.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Features:**
+
+- **Cell Editing:** Click on any cell to modify its content. Changes are automatically reflected in the data model.
+- **Pagination:** Use the controls at the bottom of the table to navigate through pages of data.
+- **Tailwind CSS Styling:** The table benefits from Tailwind CSS's utility classes for a visually appealing design.
+
+**Further Customization:**
+
+The provided project demonstrates a basic setup. You can further customize the table's functionalities by exploring TanStack React Table's extensive documentation: [https://tanstack.com/table/latest](https://tanstack.com/table/latest)
+

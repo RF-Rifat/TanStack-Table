@@ -11,8 +11,6 @@ import { makeData, Person } from "./Table/makeData";
 import React, { useEffect, useState } from "react";
 import TableFooter from "./Table/TableFooter";
 import Table from "./Table/Table";
-
-// Define the type of the meta object
 interface CustomTableMeta<TData extends object> extends TableMeta<TData> {
   updateData: (rowIndex: number, columnId: string, value: unknown) => void;
 }
