@@ -5,18 +5,28 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
+  TableMeta,
 } from "@tanstack/react-table";
 import { makeData, Person } from "./Table/makeData";
 import React, { useEffect, useState } from "react";
 import TableFooter from "./Table/TableFooter";
 import Table from "./Table/Table";
 
+// Define the type of the meta object
+interface CustomTableMeta<TData extends object> extends TableMeta<TData> {
+  updateData: (rowIndex: number, columnId: string, value: string) => void;
+}
+
 const defaultColumn: Partial<ColumnDef<Person>> = {
   cell: ({ getValue, row: { index }, column: { id }, table }) => {
     const initialValue = getValue();
     const [value, setValue] = useState(initialValue);
     const onBlur = () => {
-      table.options.meta?.updateData(index, id, value);
+      (table.options.meta as CustomTableMeta<Person>).updateData(
+        index,
+        id,
+        value
+      );
     };
     useEffect(() => {
       setValue(initialValue);
@@ -97,7 +107,7 @@ function App() {
     autoResetPageIndex,
 
     meta: {
-      updateData: (rowIndex: number, columnId: string, value: string) => {
+      updateData: (rowIndex: number, columnId: string, value: string | number) => {
         skipAutoResetPageIndex();
         setData((old) =>
           old.map((row, index) => {
@@ -110,7 +120,7 @@ function App() {
           })
         );
       },
-    },
+    } as CustomTableMeta<Person>,
     debugTable: true,
   });
 
