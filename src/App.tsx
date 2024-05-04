@@ -14,7 +14,7 @@ import Table from "./Table/Table";
 
 // Define the type of the meta object
 interface CustomTableMeta<TData extends object> extends TableMeta<TData> {
-  updateData: (rowIndex: number, columnId: string, value: string) => void;
+  updateData: (rowIndex: number, columnId: string, value: unknown) => void;
 }
 
 const defaultColumn: Partial<ColumnDef<Person>> = {
