@@ -1,22 +1,70 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* import { useState, useEffect, FC } from "react";
+
+interface EditableCellProps {
+  value: string | number;
+  row: { index: number };
+  column: { id: string };
+  updateData: (index: number, id: string, value: number | string) => void;
+}
+
+export const EditableCell: FC<EditableCellProps> = ({
+  value: initialValue,
+  row: { index },
+  column: { id },
+  updateData,
+}) => {
+  const [value, setValue] = useState(initialValue);
+
+  const onBlur = () => {
+    updateData(index, id, value);
+  };
+
+  useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  return (
+    <input
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onBlur={onBlur}
+      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+    />
+  );
+};
+ */
+
+
 import {
   ColumnDef,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   useReactTable,
+  TableMeta,
 } from "@tanstack/react-table";
-import { makeData, Person } from "./Table/makeData";
+
 import React, { useEffect, useState } from "react";
-import TableFooter from "./Table/TableFooter";
-import Table from "./Table/Table";
+import { makeData, Person } from "./makeData";
+import Table from "./Table";
+import TableFooter from "./TableFooter";
+
+// Define the type of the meta object
+interface CustomTableMeta<TData extends object> extends TableMeta<TData> {
+  updateData: (rowIndex: number, columnId: string, value: string) => void;
+}
 
 const defaultColumn: Partial<ColumnDef<Person>> = {
   cell: ({ getValue, row: { index }, column: { id }, table }) => {
     const initialValue = getValue();
     const [value, setValue] = useState(initialValue);
     const onBlur = () => {
-      table.options.meta?.updateData(index, id, value);
+      (table.options.meta as CustomTableMeta<Person>).updateData(
+        index,
+        id,
+        value
+      ); 
     };
     useEffect(() => {
       setValue(initialValue);
@@ -54,32 +102,7 @@ function App() {
         header: () => "First Name",
         footer: (props) => props.column.id,
       },
-      {
-        accessorFn: (row) => row.lastName,
-        id: "lastName",
-        header: () => "Last Name",
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "age",
-        header: () => "Age",
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "visits",
-        header: () => "Visits",
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "status",
-        header: () => "Status",
-        footer: (props) => props.column.id,
-      },
-      {
-        accessorKey: "progress",
-        header: () => "Profile Progress",
-        footer: (props) => props.column.id,
-      },
+      // Define other columns...
     ],
     []
   );
@@ -96,6 +119,7 @@ function App() {
     getPaginationRowModel: getPaginationRowModel(),
     autoResetPageIndex,
 
+    // Define the updateData function in the meta object
     meta: {
       updateData: (rowIndex: number, columnId: string, value: string) => {
         skipAutoResetPageIndex();
@@ -110,7 +134,7 @@ function App() {
           })
         );
       },
-    },
+    } as CustomTableMeta<Person>, // Type assertion
     debugTable: true,
   });
 
