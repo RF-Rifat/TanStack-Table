@@ -6,8 +6,10 @@ interface TableProps<T> {
 
 const Table = <T extends object>({ table }: TableProps<T>) => (
   <>
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200">
+    <div className="overflow-x-auto rounded-md shadow">
+      <table
+        className="min-w-full divide-y divide-gray-200 border border-gray-200" // Added border styles
+      >
         <thead className="bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -32,7 +34,9 @@ const Table = <T extends object>({ table }: TableProps<T>) => (
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="hover:bg-gray-100">
+              {" "}
+              {/* Added hover effect */}
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

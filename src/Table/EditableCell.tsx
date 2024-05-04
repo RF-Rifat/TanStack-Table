@@ -1,41 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-/* import { useState, useEffect, FC } from "react";
-
-interface EditableCellProps {
-  value: string | number;
-  row: { index: number };
-  column: { id: string };
-  updateData: (index: number, id: string, value: number | string) => void;
-}
-
-export const EditableCell: FC<EditableCellProps> = ({
-  value: initialValue,
-  row: { index },
-  column: { id },
-  updateData,
-}) => {
-  const [value, setValue] = useState(initialValue);
-
-  const onBlur = () => {
-    updateData(index, id, value);
-  };
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  return (
-    <input
-      value={value}
-      onChange={(e) => setValue(e.target.value)}
-      onBlur={onBlur}
-      className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-    />
-  );
-};
- */
-
-
 import {
   ColumnDef,
   getCoreRowModel,
@@ -50,7 +13,6 @@ import { makeData, Person } from "./makeData";
 import Table from "./Table";
 import TableFooter from "./TableFooter";
 
-// Define the type of the meta object
 interface CustomTableMeta<TData extends object> extends TableMeta<TData> {
   updateData: (rowIndex: number, columnId: string, value: unknown) => void;
 }
@@ -64,7 +26,7 @@ const defaultColumn: Partial<ColumnDef<Person>> = {
         index,
         id,
         value
-      ); 
+      );
     };
     useEffect(() => {
       setValue(initialValue);
@@ -75,6 +37,7 @@ const defaultColumn: Partial<ColumnDef<Person>> = {
         value={value as string}
         onChange={(e) => setValue(e.target.value)}
         onBlur={onBlur}
+        className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
       />
     );
   },
@@ -89,7 +52,7 @@ function useSkipper() {
 
   React.useEffect(() => {
     shouldSkipRef.current = true;
-  });
+  }, []);
 
   return [shouldSkip, skip] as const;
 }
@@ -134,7 +97,7 @@ function App() {
           })
         );
       },
-    } as CustomTableMeta<Person>, // Type assertion
+    } as CustomTableMeta<Person>,
     debugTable: true,
   });
 
